@@ -1,0 +1,46 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Alumnos registrados</h2>
+
+<div style="float:right">
+    @Html.ActionLink("Agregar", "Form", "Alumno", htmlAttributes: new { @class = "btn btn-success" })
+</div>
+
+<br />
+<br />
+<br />
+
+<table class="table table-hover table-striped table-bordered table-responsive">
+    <thead>
+        <tr class="table-secundary">
+            <td style="text-align:center">Editar</td>
+            <td style="display:none">id</td>
+            <td style="text-align:center">Alumno</td>
+            <td style="text-align:center">Genero</td>
+            <td style="text-align:center">Edad</td>
+            <td style="text-align:center">Eliminar</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (ML.Alumno alumno in Model.Alumnos)
+        {
+            <tr>
+                <td style="text-align:center; vertical-align:middle;"><a class=" btn btn-warning" href="@Url.Action("Form", "Alumno", new {idAlumno = alumno.IdAlumno})"></a></td>
+                <td style="display:none">@alumno.IdAlumno</td>
+                <td style="text-align:center;">@alumno.Nombre</td>
+                <td style="text-align:center;">@alumno.Genero</td>
+                <td style="text-align:center;">@alumno.Edad</td>
+                <td style="text-align:center; vertical-align:middle;"><a class=" btn btn-danger" href="@Url.Action("Delete", "Alumno", new {idAlumno = alumno.IdAlumno})"></a></td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+

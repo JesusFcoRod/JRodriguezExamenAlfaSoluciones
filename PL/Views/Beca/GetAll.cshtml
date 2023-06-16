@@ -1,0 +1,41 @@
+﻿@model ML.Beca
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Becas Disponibles</h2>
+
+<div style="float:right">
+    @Html.ActionLink("Agregar", "Form", "Beca", htmlAttributes: new { @class = "btn btn-success" })
+</div>
+
+<br />
+<br />
+<br />
+
+<table class="table table-hover table-striped table-bordered table-responsive">
+    <thead>
+        <tr class="table-secundary">
+            <td style="text-align:center">Editar</td>
+            <td style="display:none">id</td>
+            <td style="text-align:center">Beca</td>
+            <td style="text-align:center">Eliminar</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (ML.Beca beca in Model.Becas)
+        {
+            <tr>
+                <td style="text-align:center; vertical-align:middle;"><a class=" btn btn-warning" href="@Url.Action("Form", "Beca", new {IdBeca = beca.IdBeca})"></a></td>
+                <td style="display:none">@beca.IdBeca</td>
+                <td style="text-align:center;">@beca.NombreBeca</td>
+                <td style="text-align:center; vertical-align:middle;"><a class=" btn btn-danger" href="@Url.Action("Delete", "Beca", new {IdBeca = beca.IdBeca})"></a></td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+

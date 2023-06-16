@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JRodriguezExamenAlfaSolucionesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="80" />
+          <Property Name="Genero" Type="char" MaxLength="1" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="IdBeca" Type="int" />
+        </EntityType>
+        <EntityType Name="Beca">
+          <Key>
+            <PropertyRef Name="IdBeca" />
+          </Key>
+          <Property Name="IdBeca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreBeca" Type="varchar" MaxLength="35" />
+        </EntityType>
+        <Association Name="FK__Alumno__IdBeca__1367E606">
+          <End Role="Beca" Type="Self.Beca" Multiplicity="0..1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beca">
+              <PropertyRef Name="IdBeca" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="IdBeca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AlumnoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BecaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="JRodriguezExamenAlfaSolucionesModelStoreContainer">
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beca" EntityType="Self.Beca" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Alumno__IdBeca__1367E606" Association="Self.FK__Alumno__IdBeca__1367E606">
+            <End Role="Beca" EntitySet="Beca" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JRodriguezExamenAlfaSolucionesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="IdBeca" Type="Int32" />
+          <NavigationProperty Name="Beca" Relationship="Self.FK__Alumno__IdBeca__1367E606" FromRole="Alumno" ToRole="Beca" />
+        </EntityType>
+        <EntityType Name="Beca">
+          <Key>
+            <PropertyRef Name="IdBeca" />
+          </Key>
+          <Property Name="IdBeca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreBeca" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alumnoes" Relationship="Self.FK__Alumno__IdBeca__1367E606" FromRole="Beca" ToRole="Alumno" />
+        </EntityType>
+        <Association Name="FK__Alumno__IdBeca__1367E606">
+          <End Role="Beca" Type="Self.Beca" Multiplicity="0..1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beca">
+              <PropertyRef Name="IdBeca" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="IdBeca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JRodriguezExamenAlfaSolucionesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
+          <EntitySet Name="Becas" EntityType="Self.Beca" />
+          <AssociationSet Name="FK__Alumno__IdBeca__1367E606" Association="Self.FK__Alumno__IdBeca__1367E606">
+            <End Role="Beca" EntitySet="Becas" />
+            <End Role="Alumno" EntitySet="Alumnoes" />
+          </AssociationSet>
+          <FunctionImport Name="AlumnoGetAll" ReturnType="Collection(JRodriguezExamenAlfaSolucionesModel.AlumnoGetAll_Result)" />
+          <FunctionImport Name="BecaGetAll" ReturnType="Collection(JRodriguezExamenAlfaSolucionesModel.BecaGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="AlumnoGetAll_Result">
+          <Property Type="Int32" Name="IdAlumno" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Genero" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="Edad" Nullable="true" />
+          <Property Type="Int32" Name="IdBeca" Nullable="true" />
+          <Property Type="String" Name="NombreBeca" Nullable="true" MaxLength="35" />
+        </ComplexType>
+        <ComplexType Name="BecaGetAll_Result">
+          <Property Type="Int32" Name="IdBeca" Nullable="false" />
+          <Property Type="String" Name="NombreBeca" Nullable="true" MaxLength="35" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JRodriguezExamenAlfaSolucionesModelStoreContainer" CdmEntityContainer="JRodriguezExamenAlfaSolucionesEntities">
+          <EntitySetMapping Name="Alumnoes">
+            <EntityTypeMapping TypeName="JRodriguezExamenAlfaSolucionesModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Becas">
+            <EntityTypeMapping TypeName="JRodriguezExamenAlfaSolucionesModel.Beca">
+              <MappingFragment StoreEntitySet="Beca">
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoGetAll" FunctionName="JRodriguezExamenAlfaSolucionesModel.Store.AlumnoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JRodriguezExamenAlfaSolucionesModel.AlumnoGetAll_Result">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BecaGetAll" FunctionName="JRodriguezExamenAlfaSolucionesModel.Store.BecaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JRodriguezExamenAlfaSolucionesModel.BecaGetAll_Result">
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

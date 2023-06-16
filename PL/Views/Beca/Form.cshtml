@@ -1,0 +1,40 @@
+﻿@model ML.Beca
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registro de Becas</h2>
+
+
+@using (Html.BeginForm("Form", "Beca", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-1" style="display: none;">
+            @Html.TextBoxFor(model => model.IdBeca, new { @class = "hidden form-control", autocomplete = "off" })
+        </div>
+
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.NombreBeca)
+            <div class="input-group mb-12">
+                <span class="input-group-text"><i class="bi bi-controller"></i></span>
+                @Html.TextBoxFor(model => model.NombreBeca, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NombreBeca, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="glyphicon-up">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <br />
+                    <br />
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+                    @Html.ActionLink("Regresar", "GetAll", "Beca", htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
